@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 chai.use(chaiHttp);
 
 describe('Test', () => {
-  
+
   it('should POST a valid product', (done) => {
     let product = {
       name: "Test Product",
@@ -28,9 +28,16 @@ describe('Test', () => {
       });
   });
 
-  // Close the server after tests to free up the port
+  // After all tests, attempt to close the server.
   after(function(done) {
-    server.close(done);
+    // Check if the server is still running before closing
+    if (server && server.listening) {
+      server.close((err) => {
+        // If an error occurs (e.g., server already closed), ignore it.
+        done();
+      });
+    } else {
+      done();
+    }
   });
-
 });
