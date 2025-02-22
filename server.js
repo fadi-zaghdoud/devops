@@ -13,9 +13,10 @@ server.use("/api", productRoutes); //CRUD routes
 
 
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 server.listen(PORT, function () {
-  console.log("Server is running on port:  " + PORT);
+  console.log("Server is running on port: " + PORT);
 });
+
 
 module.exports = server;
